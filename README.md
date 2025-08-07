@@ -2,7 +2,7 @@
 
 Ludy Hasby Aulia
 
-[[Project Page](https://huggingface.co/ludyhasby/lamini_docs_instruct)] [[Notebook](waiting)] 
+[[Modell Page](https://huggingface.co/ludyhasby/lamini_docs_100_steps/tree/main)] [[Notebook](/src/instructionTuning.ipynb)] 
 <p align="center">
     <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*SwMMluhfo_YW1-9Mwpb8kg.png" width="80%"> <br>
     Instruction Tuning, Image take from<a href="https://medium.com/@lmpo/an-overview-instruction-tuning-for-llms-440228e7edab"> LM PRO</a>
