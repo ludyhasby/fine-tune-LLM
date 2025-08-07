@@ -123,30 +123,30 @@ This workflow prepares the data for fine-tuning and ensures compatibility with. 
 5. **Strip the Prompt**  
    The decoded output often contains the original prompt followed by the model’s response. To isolate the model’s answer, the prompt portion is removed, leaving only the generated response for evaluation or further processing.
 
-```
-def inference(prompt, model, tokenizer, max_input_token=1000, max_output_token=100):
-    """
-    Function to generate model response from prompt
-    """
-    # Generate Tokenization from prompt
-    inputs = tokenizer.encode(
-        prompt, 
-        return_tensors="pt",
-        truncation=True, 
-        max_length=max_input_token
-    )
-    # Generate Response
-    device = model.device
-    generate_token = model.generate(
-        inputs.to(device), 
-        max_new_tokens=max_output_token
-    )
-    # Decode the result from tokenization
-    response = tokenizer.batch_decode(generate_token, 
-                                      skip_special_tokens=True)    
-    # Strip the prompt
-    response = response[0][len(prompt):]
-    return response
+```python
+    def inference(prompt, model, tokenizer, max_input_token=1000, max_output_token=100):
+        """
+        Function to generate model response from prompt
+        """
+        # Generate Tokenization from prompt
+        inputs = tokenizer.encode(
+            prompt, 
+            return_tensors="pt",
+            truncation=True, 
+            max_length=max_input_token
+        )
+        # Generate Response
+        device = model.device
+        generate_token = model.generate(
+            inputs.to(device), 
+            max_new_tokens=max_output_token
+        )
+        # Decode the result from tokenization
+        response = tokenizer.batch_decode(generate_token, 
+                                        skip_special_tokens=True)    
+        # Strip the prompt
+        response = response[0][len(prompt):]
+        return response
 ```
 
 ### Handle Unrelevant Information
@@ -210,7 +210,71 @@ You should write a simplified implementation flow of how you would:
 - Training Config `TrainingArguments(...)`
 - Run the training using Hugging Face’s `Trainer(...)` or similar API
 
-#### Workflow to generate procedural instruction from fine tuning model
+#### Our Fine Tune Model 
+#### 🏆 Our Fine-Tuned Model
+
+You can explore and use our fine-tuned model directly on Hugging Face:  
+[**Lamini Docs Instruction-Tuned Model**](https://huggingface.co/ludyhasby/lamini_docs_100_steps/tree/main)
+
+---
+
+#### 🚀 Workflow: Generate Instructions with the Fine-Tuned Model
+
+**Step-by-step guide to run inference from scratch:**
+
+1. **Load the Fine-Tuned Model**
+    ```python
+    from transformers import AutoModelForCausalLM
+
+    fine_model_id = "ludyhasby/lamini_docs_100_steps"
+    fine_model = AutoModelForCausalLM.from_pretrained(fine_model_id)
+    ```
+
+2. **Load the Tokenizer**
+    ```python
+    from transformers import AutoTokenizer
+
+    tokenizer = AutoTokenizer.from_pretrained(fine_model_id)
+    tokenizer.pad_token = tokenizer.eos_token
+    ```
+
+3. **Prepare Your Instruction/Question**
+    - Write your prompt or instruction as a string.
+
+4. **Preprocess the Input**
+    - Tokenize your prompt using the loaded tokenizer.
+
+5. **Generate Model Response**
+    - Pass the tokenized input to the fine-tuned model for inference.
+
+6. **Decode the Output**
+    - Convert the model's output tokens back to human-readable text.
+
+---
+
+**Example Usage:**
+```python
+prompt = "How does Lamini handle background jobs?"
+inputs = tokenizer(prompt, return_tensors="pt")
+outputs = fine_model.generate(**inputs, max_new_tokens=100)
+response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(response)
+```
+
+---
+
+### 🖥️ Run the Ready-to-Use Program
+
+For a streamlined experience, simply run our provided script:
+```bash
+python src/load_fine_tune.py
+```
+This will automatically load the fine-tuned model and tokenizer, and prompt you for instructions.
+
+---
+
+> **Tip:**  
+> You can further customize the inference pipeline for batch processing, web API integration, or evaluation
 
 ## Acknowledgement
 This project benefits from [Lamini](https://huggingface.co/datasets/lamini/lamini_docs), [EleutherAI/phythia](https://huggingface.co/EleutherAI/pythia-410m)
