@@ -260,8 +260,13 @@ outputs = fine_model.generate(**inputs, max_new_tokens=100)
 response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 print(response)
 ```
+We have also developed an interactive web interface that allows you to engage directly with our fine-tuned LLM.  
 
----
+You can input your own instructions or questions and receive real-time responses from the model, making it easy to explore its capabilities and evaluate its performance.
+
+👉 **Try it now:** [Interact with our LLM on Hugging Face Spaces](https://huggingface.co/spaces/ludyhasby/llm-fine-tune)
+
+This user-friendly interface is ideal for demonstrations, testing, and practical applications—no coding required!
 
 ### 🖥️ Run the Ready-to-Use Program
 
