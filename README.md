@@ -264,6 +264,10 @@ We have also developed an interactive web interface that allows you to engage di
 
 You can input your own instructions or questions and receive real-time responses from the model, making it easy to explore its capabilities and evaluate its performance.
 
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/32e8c8a1-8871-4560-985c-6dfb20892e0b" width="100%">
+</p>
+
 👉 **Try it now:** [Interact with our LLM on Hugging Face Spaces](https://huggingface.co/spaces/ludyhasby/llm-fine-tune)
 
 This user-friendly interface is ideal for demonstrations, testing, and practical applications—no coding required!
